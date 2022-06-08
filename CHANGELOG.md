@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/catalystsquad/action-upload-chart-registry/compare/v1.0.1...v1.0.2) (2022-06-08)
+
+
+### Bug Fixes
+
+* get the tar and zip archives from releases as well ([#3](https://github.com/catalystsquad/action-upload-chart-registry/issues/3)) ([d9fb7f8](https://github.com/catalystsquad/action-upload-chart-registry/commit/d9fb7f844e39ec1ab367c610ff23bd5d42507d04))
+
 ## [1.0.1](https://github.com/catalystsquad/action-upload-chart-registry/compare/v1.0.0...v1.0.1) (2022-06-08)
 
 
