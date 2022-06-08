@@ -1,11 +1,11 @@
 <!-- start title -->
 
-# GitHub Action:Upload Chart to Registry
+# GitHub Action:Upload a released helm chart to a git helm charts repository
 
 <!-- end title -->
 <!-- start description -->
 
-This just does a `helm push` to the URL after downloading the asset specified. Meaning that if you set the URL to be oci, it's going to use it. Uses Helm above 3.7.0 so no `helm chart` support is given, which if fine since this action installs the version of helm used.
+Extracts a helm chart from a release, adds it to a git helm repository, then reindexes the repository. This action is designed to be run on a release trigger, and to extract a packaged chart in .tgz format from a .tgz file such as chart.tgz.
 
 <!-- end description -->
 <!-- start contents -->
@@ -13,30 +13,28 @@ This just does a `helm push` to the URL after downloading the asset specified. M
 <!-- start usage -->
 
 ```yaml
-- uses: catalystsquad/action-upload-chart-registry@v1
+- uses: catalystsquad/action-upload-chart-registry@undefined
   with:
     # Release tag to fetch chart from
     # Default: ${{ github.event.release.tag_name }}
-    tag: v2.0.1
-    # The asset name containing the chart, must be a tar file
-    # Default: "chart.tgz"
-    release-asset-name: "${{ github.event.release.tag_name }}.tar.gz"
-    # The Helm Registry URL for the chart
-    # Required, no default given
-    helm-registry-url: oci://domain.com/path
+    tag: ""
 
+    # the asset name containing the chart, must be a tar file
+    # Default: chart.tgz
+    release-asset-name: ""
+
+    # the url of the helm registry to upload to
+    helm-registry-url: ""
 ```
 
 <!-- end usage -->
 <!-- start inputs -->
 
-| **Input**                | **Description**                    |  **Default**                                  | **Required** |
-| :----------------------- | :--------------------------------- |  :----------------------------------------:   | :----------: |
-| **`tag`**                | Release tag to fetch chart from    |     `${{ github.event.release.tag_name }}`    |  **false**   |
-| :----------------------- | :--------------------------------- |  :----------------------------------------:   | :----------: |
-| **`release-asset-name`** | Who to greet                       | `${{ github.event.release.tag_name }}.tar.gz` |  **false**   |
-| :----------------------- | :--------------------------------- |  :----------------------------------------:   | :----------: |
-| **`helm-registry-url`**  | The Helm Registry URL              |     N/A                                       |  **true**    |
+| **Input**                | **Description**                                         |              **Default**               | **Required** |
+| :----------------------- | :------------------------------------------------------ | :------------------------------------: | :----------: |
+| **`tag`**                | Release tag to fetch chart from                         | `${{ github.event.release.tag_name }}` |  **false**   |
+| **`release-asset-name`** | the asset name containing the chart, must be a tar file |              `chart.tgz`               |  **false**   |
+| **`helm-registry-url`**  | the url of the helm registry to upload to               |                                        |   **true**   |
 
 <!-- end inputs -->
 <!-- start outputs -->
