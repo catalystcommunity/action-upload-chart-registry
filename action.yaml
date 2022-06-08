@@ -1,22 +1,32 @@
-name: 'Hello World' # taken from https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
-description: 'Greet someone'
+name: 'Upload a released helm chart to a git helm charts repository'
+description: 'Extracts a helm chart from a release, adds it to a git helm repository, then reindexes the repository. This action is designed to be run on a release trigger, and to extract a packaged chart in .tgz format from a .tgz file such as chart.tgz.'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  tag:
+    description: 'Release tag to fetch chart from'
+    required: false
+    default: ${{ github.event.release.tag_name }}
+  release-asset-name:
+    description: 'the asset name containing the chart, must be a tar file'
+    required: false
+    default: 'chart.tgz'
+  helm-registry-url:
+    description: 'the url of the helm registry to upload to'
     required: true
-    default: 'World'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - name: Install Helm
+      uses: azure/setup-helm@v1
+      with:
+        version: v3.9.0
+    - name: Fetch release
+      uses: robinraju/release-downloader@v1.3
+      with:
+        repository: ${{ github.repository }}
+        tag: ${{ inputs.tag }}
+        fileName: ${{ inputs.release-asset-name }}
+        token: ${{ inputs.token }}
+    - name: Upload chart and reindex
       shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
-      shell: bash
-    - run: ${{ github.action_path }}/goodbye.sh
-      shell: bash
-
+      run: |
+        helm push ${{ inputs.release-asset-name }} ${{ inputs.helm-registry-url }}
