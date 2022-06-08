@@ -12,6 +12,10 @@ inputs:
   helm-registry-url:
     description: 'the url of the helm registry to upload to'
     required: true
+  token:
+    description: github token to use for the release, if you want this to trigger other workflows such as flows on release created, pass in a PAT
+    required: false
+    default: ${{ github.token }}
 runs:
   using: "composite"
   steps:
