@@ -1,11 +1,11 @@
 <!-- start title -->
 
-# GitHub Action:Hello World
+# GitHub Action:Upload Chart to Registry
 
 <!-- end title -->
 <!-- start description -->
 
-Greet someone
+This just does a `helm push` to the URL after downloading the asset specified. Meaning that if you set the URL to be oci, it's going to use it. Uses Helm above 3.7.0 so no `helm chart` support is given, which if fine since this action installs the version of helm used.
 
 <!-- end description -->
 <!-- start contents -->
@@ -13,26 +13,35 @@ Greet someone
 <!-- start usage -->
 
 ```yaml
-- uses: catalystsquad/action-composite-action-template@undefined
+- uses: catalystsquad/action-upload-chart-registry@v1
   with:
-    # Who to greet
-    # Default: World
-    who-to-greet: ""
+    # Release tag to fetch chart from
+    # Default: ${{ github.event.release.tag_name }}
+    tag: v2.0.1
+    # The asset name containing the chart, must be a tar file
+    # Default: "chart.tgz"
+    release-asset-name: "${{ github.event.release.tag_name }}.tar.gz"
+    # The Helm Registry URL for the chart
+    # Required, no default given
+    helm-registry-url: oci://domain.com/path
+
 ```
 
 <!-- end usage -->
 <!-- start inputs -->
 
-| **Input**          | **Description** | **Default** | **Required** |
-| :----------------- | :-------------- | :---------: | :----------: |
-| **`who-to-greet`** | Who to greet    |   `World`   |   **true**   |
+| **Input**                | **Description**                    |  **Default**                                  | **Required** |
+| :----------------------- | :--------------------------------- |  :----------------------------------------:   | :----------: |
+| **`tag`**                | Release tag to fetch chart from    |     `${{ github.event.release.tag_name }}`    |  **false**   |
+| :----------------------- | :--------------------------------- |  :----------------------------------------:   | :----------: |
+| **`release-asset-name`** | Who to greet                       | `${{ github.event.release.tag_name }}.tar.gz` |  **false**   |
+| :----------------------- | :--------------------------------- |  :----------------------------------------:   | :----------: |
+| **`helm-registry-url`**  | The Helm Registry URL              |     N/A                                       |  **true**    |
 
 <!-- end inputs -->
 <!-- start outputs -->
 
-| **Output**      | **Description** | **Default** | **Required** |
-| :-------------- | :-------------- | ----------- | ------------ |
-| `random-number` | Random number   |             |              |
+No Outputs at this time
 
 <!-- end outputs -->
 <!-- start examples -->
@@ -43,17 +52,24 @@ Greet someone
 on: [push]
 
 jobs:
-  hello_world_job:
+  push_my_released_chart_tgz:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: I will push my chart!
     steps:
-      - uses: actions/checkout@v2
-      - id: foo
-        uses: actions/hello-world-composite-action@v1
+      - name: Dump Context
+        uses: crazy-max/ghaction-dump-context@v1
+      - name: Whatever I Need to Do to Login
+        # This is whatever actions I need to take to be logged in to my helm registry
+        uses: fakeorg/action-login-to-registry@v7
         with:
-          who-to-greet: "Mona the Octocat"
-      - run: echo random-number ${{ steps.foo.outputs.random-number }}
-        shell: bash
+          REGISTRY_USERNAME: somesecret
+          REGISTRY_PASSWORD: somepasswordmaybealsofromsecrets
+      - name: Push Chart
+        uses: catalystsquad/action-upload-chart-registry@v1
+        with:
+          tag: ${{ github.event.release.tag_name }}
+          release-asset-name: "${{ github.event.release.tag_name }}.tar.gz"
+          helm-registry-url: oci://domain.com/path
 ```
 
 <!-- end examples -->
