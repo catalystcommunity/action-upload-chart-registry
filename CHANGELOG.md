@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/catalystsquad/action-upload-chart-registry/compare/v1.0.0...v1.0.1) (2022-06-08)
+
+
+### Bug Fixes
+
+* add a token, since it is required to have one ([#2](https://github.com/catalystsquad/action-upload-chart-registry/issues/2)) ([8822b51](https://github.com/catalystsquad/action-upload-chart-registry/commit/8822b51c91df8cecd1ddffd1d35ea6f5f218324a))
+
 # 1.0.0 (2022-06-08)
 
 
