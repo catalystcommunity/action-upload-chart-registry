@@ -26,7 +26,8 @@ Extracts a helm chart from a release, adds it to a git helm repository, then rei
     # the url of the helm registry to upload to
     helm-registry-url: ""
 
-    # github token to use for the release, if you want this to trigger other workflows such as flows on release created, pass in a PAT
+    # github token to use for the release, if you want this to trigger other workflows
+    # such as flows on release created, pass in a PAT
     # Default: ${{ github.token }}
     token: ""
 ```
@@ -34,12 +35,12 @@ Extracts a helm chart from a release, adds it to a git helm repository, then rei
 <!-- end usage -->
 <!-- start inputs -->
 
-| **Input**                | **Description**                                         |              **Default**               | **Required** |
-| :----------------------- | :------------------------------------------------------ | :------------------------------------: | :----------: |
-| **`tag`**                | Release tag to fetch chart from                         | `${{ github.event.release.tag_name }}` |  **false**   |
-| **`token`**              | github token to use for the release                     |        `${{ github.token }}`           |  **false**   |
-| **`release-asset-name`** | the asset name containing the chart, must be a tar file |              `chart.tgz`               |  **false**   |
-| **`helm-registry-url`**  | the url of the helm registry to upload to               |                                        |   **true**   |
+| **Input**                | **Description**                                                                                                                  |              **Default**               | **Required** |
+| :----------------------- | :------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------: | :----------: |
+| **`tag`**                | Release tag to fetch chart from                                                                                                  | `${{ github.event.release.tag_name }}` |  **false**   |
+| **`release-asset-name`** | the asset name containing the chart, must be a tar file                                                                          |              `chart.tgz`               |  **false**   |
+| **`helm-registry-url`**  | the url of the helm registry to upload to                                                                                        |                                        |   **true**   |
+| **`token`**              | github token to use for the release, if you want this to trigger other workflows such as flows on release created, pass in a PAT |         `${{ github.token }}`          |  **false**   |
 
 <!-- end inputs -->
 <!-- start outputs -->
