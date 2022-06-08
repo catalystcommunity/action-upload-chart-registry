@@ -28,6 +28,8 @@ runs:
       with:
         repository: ${{ github.repository }}
         tag: ${{ inputs.tag }}
+        tarball: true
+        zipball: true
         fileName: ${{ inputs.release-asset-name }}
         token: ${{ inputs.token }}
     - name: Upload chart and reindex
