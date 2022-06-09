@@ -5,7 +5,7 @@
 <!-- end title -->
 <!-- start description -->
 
-Extracts a helm chart from a release, adds it to a git helm repository, then reindexes the repository. This action is designed to be run on a release trigger, and to extract a packaged chart in .tgz format from a .tgz file such as chart.tgz.
+Extracts a helm chart tgz file from a release, assumes the . This action is designed to be run on a release trigger, and to extract a packaged chart in .tgz format from a .tgz file such as chart.tgz.
 
 <!-- end description -->
 <!-- start contents -->
