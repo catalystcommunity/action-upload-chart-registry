@@ -72,7 +72,7 @@ jobs:
         uses: catalystsquad/action-upload-chart-registry@v1
         with:
           tag: ${{ github.event.release.tag_name }}
-          release-asset-name: "${{ github.event.release.tag_name }}.tar.gz"
+          release-asset-name: "chartname-${{ github.event.release.tag_name }}.tar.gz"
           helm-registry-url: oci://domain.com/path
 ```
 
