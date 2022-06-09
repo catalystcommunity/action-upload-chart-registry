@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/catalystsquad/action-upload-chart-registry/compare/v1.0.2...v1.0.3) (2022-06-09)
+
+
+### Bug Fixes
+
+* use normal helm packaging asset names ([#4](https://github.com/catalystsquad/action-upload-chart-registry/issues/4)) ([75e6f5c](https://github.com/catalystsquad/action-upload-chart-registry/commit/75e6f5cb2b13ad7442b9e121651d10a95ece9e9f))
+
 ## [1.0.2](https://github.com/catalystsquad/action-upload-chart-registry/compare/v1.0.1...v1.0.2) (2022-06-08)
 
 
