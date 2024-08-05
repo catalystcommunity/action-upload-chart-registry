@@ -13,7 +13,7 @@ Extracts a helm chart tgz file from a release, assumes the . This action is desi
 <!-- start usage -->
 
 ```yaml
-- uses: catalystsquad/action-upload-chart-registry@undefined
+- uses: catalystcommunity/action-upload-chart-registry@undefined
   with:
     # Release tag to fetch chart from
     # Default: ${{ github.event.release.tag_name }}
@@ -69,7 +69,7 @@ jobs:
           REGISTRY_USERNAME: somesecret
           REGISTRY_PASSWORD: somepasswordmaybealsofromsecrets
       - name: Push Chart
-        uses: catalystsquad/action-upload-chart-registry@v1
+        uses: catalystcommunity/action-upload-chart-registry@v1
         with:
           tag: ${{ github.event.release.tag_name }}
           release-asset-name: "chartname-${{ github.event.release.tag_name }}.tar.gz"
